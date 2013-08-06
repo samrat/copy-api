@@ -45,7 +45,9 @@
   [signing-map & {:keys [url-encode?] :or {url-encode? true}}]
 
   (let [val-transform (if url-encode? oas/url-encode identity)
-        s (reduce (fn [s [k v]] (format "%s%s=\"%s\"," s (name k) (val-transform (str v))))
+        s (reduce (fn [s [k v]]
+                    (format "%s%s=\"%s\","
+                            s (name k) (val-transform (str v))))
                   "OAuth "
                   signing-map)]
     (.substring s 0 (dec (count s)))))
@@ -75,3 +77,19 @@
                                    {:headers {"Authorization"
                                               (oauth-header-string credentials)
                                               "X-Api-Version" "1"}})))))
+
+(defn meta-info
+  "Retrieves file and folder metadata for the specified path."
+  [consumer access-token-response & {:keys [path]
+                                     :or {path ""}}]
+  (let [request-url (str "https://api.copy.com/rest/meta/copy" path)
+        credentials (make-credentials consumer
+                                      access-token-response
+                                      :GET
+                                      request-url
+                                      nil)]
+    (parse-string
+     (:body (http/get request-url
+                      {:headers {"Authorization"
+                                 (oauth-header-string credentials)
+                                 "X-Api-Version" "1"}})))))

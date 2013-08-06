@@ -93,3 +93,27 @@
                       {:headers {"Authorization"
                                  (oauth-header-string credentials)
                                  "X-Api-Version" "1"}})))))
+
+(defn file-activity
+  "Retrieves file revisions metadata for a file at the specified path."
+  [consumer access-token-response & {:keys [path time]
+                                     :or {path ""}}]
+  (let [request-url (str "https://api.copy.com/rest/meta/copy"
+                         path
+                         (if (= (str (last path)) "/")
+                           nil
+                           "/")
+                         "@activity"
+                         (when time
+                           (str "/@time:" time)))
+        credentials (make-credentials consumer
+                                      access-token-response
+                                      :GET
+                                      request-url
+                                      nil)]
+    (println request-url)
+    (parse-string
+     (:body (http/get request-url
+                      {:headers {"Authorization"
+                                 (oauth-header-string credentials)
+                                 "X-Api-Version" "1"}})))))

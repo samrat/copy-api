@@ -133,3 +133,18 @@
                         :headers {"Authorization"
                                   (oauth-header-string credentials)
                                   "X-Api-Version" "1"}})))))
+
+(defn delete-file
+  "Retrieves file and folder metadata for the specified path."
+  [consumer access-token-response & {:keys [path]}]
+  (let [request-url (str "https://api.copy.com/rest/files" path)
+        credentials (make-credentials consumer
+                                      access-token-response
+                                      :DELETE
+                                      request-url
+                                      nil)]
+    (parse-string
+     (:body (http/delete request-url
+                      {:headers {"Authorization"
+                                 (oauth-header-string credentials)
+                                 "X-Api-Version" "1"}})))))

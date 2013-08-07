@@ -16,7 +16,8 @@
     (parse-string (:body (http/get request-url
                                    {:headers {"Authorization"
                                               (oauth-header-string credentials)
-                                              "X-Api-Version" "1"}})))))
+                                              "X-Api-Version" "1"}}))
+                  true)))
 
 (defn meta-info
   "Retrieves file and folder metadata for the specified path."
@@ -32,7 +33,8 @@
      (:body (http/get request-url
                       {:headers {"Authorization"
                                  (oauth-header-string credentials)
-                                 "X-Api-Version" "1"}})))))
+                                 "X-Api-Version" "1"}}))
+     true)))
 
 (defn file-activity
   "Retrieves file revisions metadata for a file at the specified path."
@@ -55,7 +57,8 @@
      (:body (http/get request-url
                       {:headers {"Authorization"
                                  (oauth-header-string credentials)
-                                 "X-Api-Version" "1"}})))))
+                                 "X-Api-Version" "1"}}))
+     true)))
 
 (defn upload-file
   "Retrieves file and folder metadata for the specified path."
@@ -73,7 +76,8 @@
                                                local-path)}]
                         :headers {"Authorization"
                                   (oauth-header-string credentials)
-                                  "X-Api-Version" "1"}})))))
+                                  "X-Api-Version" "1"}}))
+     true)))
 
 (defn delete-file
   "Deletes the file or directory at the specified path."
@@ -88,4 +92,5 @@
      (:body (http/delete request-url
                       {:headers {"Authorization"
                                  (oauth-header-string credentials)
-                                 "X-Api-Version" "1"}})))))
+                                 "X-Api-Version" "1"}}))
+     true)))

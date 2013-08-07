@@ -1,4 +1,4 @@
-(defproject copy-api "0.1.0-SNAPSHOT"
+(defproject copy-api "0.1.1-SNAPSHOT"
   :description "A Clojure wrapper for the Copy.com API"
   :url "https://github.com/samrat/copy-api"
   :license {:name "Eclipse Public License"

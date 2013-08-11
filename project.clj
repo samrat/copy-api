@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [clj-oauth "1.4.1-SNAPSHOT"]
                  [clj-http "0.7.6"]
+                 [me.raynes/fs "1.4.5"]
                  [cheshire "5.2.0"]])

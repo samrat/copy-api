@@ -2,7 +2,8 @@
   (:require [clj-http.client :as http]
             [cheshire.core :refer :all]
             [copy-api.auth :refer [make-credentials]]
-            [copy-api.utils :refer :all]))
+            [copy-api.utils :refer :all]
+            [me.raynes.fs :as fs]))
 
 (defn account-info
   "Retrieves information about the user's account."
@@ -73,7 +74,9 @@
      (:body (http/post request-url
                        {:multipart [{:name "file"
                                      :content (clojure.java.io/input-stream
-                                               local-path)}]
+                                               local-path)}
+                                    {:name "Filename"
+                                     :content (fs/base-name local-path)}]
                         :headers {"Authorization"
                                   (oauth-header-string credentials)
                                   "X-Api-Version" "1"}}))

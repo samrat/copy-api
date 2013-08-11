@@ -72,7 +72,7 @@
     (parse-string
      (:body (http/post request-url
                        {:multipart [{:name "file"
-                                     :content (clojure.java.io/file
+                                     :content (clojure.java.io/input-stream
                                                local-path)}]
                         :headers {"Authorization"
                                   (oauth-header-string credentials)

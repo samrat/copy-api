@@ -72,12 +72,14 @@
                                       nil)]
     (parse-string
      (:body (http/post request-url
-                       {:multipart ["file" (clojure.java.io/input-stream
-                                            local-path)
-                                    "filename" (fs/base-name local-path)]
+                       {:multipart [{:name (fs/base-name local-path)
+                                     :content (clojure.java.io/input-stream
+                                               local-path)
+                                     :length (fs/size local-path)}]
                         :headers {"Authorization"
                                   (oauth-header-string credentials)
-                                  "X-Api-Version" "1"}}))
+                                  "X-Api-Version" "1"
+                                  }}))
      true)))
 
 (defn delete-file

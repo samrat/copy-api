@@ -72,11 +72,9 @@
                                       nil)]
     (parse-string
      (:body (http/post request-url
-                       {:multipart [{:name "file"
+                       {:multipart [{:name (fs/base-name local-path)
                                      :content (clojure.java.io/input-stream
-                                               local-path)}
-                                    {:name "Filename"
-                                     :content (fs/base-name local-path)}]
+                                               local-path)}]
                         :headers {"Authorization"
                                   (oauth-header-string credentials)
                                   "X-Api-Version" "1"}}))
